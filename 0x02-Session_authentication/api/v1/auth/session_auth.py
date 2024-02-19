@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Used in session authentication
 """
