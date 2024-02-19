@@ -24,14 +24,16 @@ if auth_type == 'basic_auth':
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """Not found handler.
+    """
+    Not found handler.
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """Unauthorized handler.
+    """
+    Unauthorized handler.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
@@ -45,7 +47,8 @@ def forbidden(error) -> str:
 
 @app.before_request
 def authenticate_user():
-    """Authenticates a user before processing a request.
+    """
+    Authenticates a user before processing a request.
     """
     if auth:
         excluded_paths = [
@@ -55,7 +58,7 @@ def authenticate_user():
         ]
         if auth.require_auth(request.path, excluded_paths):
             auth_header = auth.authorization_header(request)
-            user = auth.current_user(request)
+            user = auth.current_user
             if auth_header is None:
                 abort(401)
             if user is None:
