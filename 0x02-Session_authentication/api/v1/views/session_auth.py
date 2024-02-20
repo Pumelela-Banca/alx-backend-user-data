@@ -2,6 +2,7 @@
 """
 Views for all session authentication
 """
+import os
 from typing  import Tuple
 from flask import jsonify, abort, request
 from api.v1.views import app_views
@@ -9,7 +10,7 @@ from models.user import User
 
 
 @app_views.route("/auth_session/login", methods=['POST'], strict_slashes=False)
-def log_in():
+def log_in() -> Tuple[str, int]:
     """
     log in session auth
     """
