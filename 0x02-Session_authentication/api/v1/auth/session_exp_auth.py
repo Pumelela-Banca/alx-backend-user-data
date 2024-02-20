@@ -54,4 +54,3 @@ class SessionExpAuth(SessionAuth):
             if exp_time < cur_time:
                 return None
             return session_dict['user_id']
-        
