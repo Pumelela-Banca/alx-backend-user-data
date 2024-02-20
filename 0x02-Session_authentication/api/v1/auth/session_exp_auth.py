@@ -14,10 +14,11 @@ class SessionExpAuth(SessionAuth):
 
     def __init__(self):
         """initialize """
-        if not os.getenv("SESSION_DURATION"):
-            session_duration: int = 0
-        else:
-            session_duration: int = int(os.getenv("SESSION_DURATION", '0'))
+        super().__init__()
+        try:
+            self.session_duration = int(os.getenv('SESSION_DURATION', '0'))
+        except Exception:
+            self.session_duration = 0
 
     def create_session(self, user_id=None):
         """
