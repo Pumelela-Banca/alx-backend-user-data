@@ -5,6 +5,7 @@ Used in session authentication
 from uuid import uuid4
 from flask import request
 from api.v1.auth.auth import Auth
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -34,3 +35,12 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """
+        (overload) that returns a User instance
+        based on a cookie value
+        """
+        u_id = (
+            self.self.user_id_for_session_id(self.session_cookie(request)))
+        return User.get(u_id)
