@@ -41,6 +41,5 @@ class SessionAuth(Auth):
         (overload) that returns a User instance
         based on a cookie value
         """
-        u_id = self.self.user_id_for_session_id(
-            self.session_cookie(request))
+        u_id = self.self.user_id_for_session_id(self.session_cookie(request))
         return User.get(u_id)
