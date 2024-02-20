@@ -3,7 +3,7 @@
 Views for all session authentication
 """
 import os
-from typing  import Tuple
+from typing import Tuple
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models.user import User
