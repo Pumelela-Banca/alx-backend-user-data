@@ -4,11 +4,7 @@ Used in session authentication
 """
 import os
 from datetime import datetime, timedelta
-from uuid import uuid4
-from flask import request
-from api.v1.auth.auth import SessionAuth
-from models.user import User
-
+from .session_auth import SessionAuth
 
 
 class SessionExpAuth(SessionAuth):
