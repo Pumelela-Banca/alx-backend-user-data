@@ -68,9 +68,10 @@ class DB:
         user = self.find_user_by(id=user_id)
         if not user:
             return None
-        for column in kwargs.values():
-            if column not in item_attributes:
+        for cc in kwargs.keys():
+            if cc not in item_attributes:
                 raise ValueError
+        for column in kwargs.values():
             if column == item_attributes[0]:
                 user.id = kwargs[column]
             if column == item_attributes[1]:
