@@ -66,6 +66,8 @@ class DB:
         item_attributes = ["id", "email", "hashed_password",
                            "session_id", "reset_token"]
         user = self.find_user_by(id=user_id)
+        if not user:
+            return 
         for column in kwargs.values():
             if column not in item_attributes:
                 raise ValueError
