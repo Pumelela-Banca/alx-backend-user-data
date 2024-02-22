@@ -34,17 +34,12 @@ class DB:
         """
         used to add user to table
         """
-        if not self._session:
-            new_sesh: sessionmaker = self._session()
-        else:
-            new_sesh: sessionmaker = self.__session
-
         try:
             user = User(email=email,
                       hashed_password=hashed_password)
-            new_sesh.add(user)
-            new_sesh.commit()
+            self._session.add(user)
+            self._session.commit()
         except Exception:
-            new_sesh.rollback()
+            self._session.rollback()
             return None
         return user
