@@ -24,7 +24,8 @@ def _generate_uuid() -> str:
     """
     generates UUID
     """
-    return str(uuid4())
+    val = uuid4()
+    return str(val)
 
 
 class Auth:
@@ -66,8 +67,9 @@ class Auth:
         creates session id and stores it in db
         """
         try:
-            user = self._db.find_user_by(email)
+            user = self._db.find_user_by(email=email)
         except (InvalidRequestError, NoResultFound):
             return None
-        self._db.update_user(user.id, session_id=_generate_uuid())
-        return user.session_id
+        sess_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=sess_id)
+        return sess_id
