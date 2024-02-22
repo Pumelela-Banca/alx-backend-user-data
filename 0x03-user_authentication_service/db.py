@@ -58,3 +58,24 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        updates user with kwargs
+        """
+        item_attributes = ["id", "email", "hashed_password",
+                           "session_id", "reset_token"]
+        user = self.find_user_by(id=user_id)
+        for column in kwargs.values():
+            if column not in item_attributes:
+                raise ValueError
+            if column == item_attributes[1]:
+                user.email = kwargs[column]
+            if column == item_attributes[2]:
+                user.hashed_password = kwargs[column]
+            if column == item_attributes[3]:
+                user.session_id = kwargs[column]
+            if column == item_attributes[4]:
+                user.reset_token = kwargs[column]
+        self._session.commit()
+        return None
