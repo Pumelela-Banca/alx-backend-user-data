@@ -5,7 +5,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import Tuple
 
 from user import Base, User
 
@@ -31,19 +30,21 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, *details: Tuple[str, ...]) -> User :
+    def add_user(self,  email: str, hashed_password: str) -> User :
         """
         used to add user to table
         """
-        if len(details) < 2:
-            return None
         if not self._session:
             new_sesh: sessionmaker = self._session()
         else:
             new_sesh: sessionmaker = self.__session
 
-        user = User(email=details[0],
-                    hashed_password=details[1])
-        new_sesh.add(user)
-        new_sesh.commit()
+        try:
+            user = User(email=email,
+                      hashed_password=hashed_password)
+            new_sesh.add(user)
+            new_sesh.commit()
+        except Exception:
+            new_sesh.rollback()
+            return None
         return user
