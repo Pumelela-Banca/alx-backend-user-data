@@ -70,8 +70,7 @@ class Auth:
             user = self._db.find_user_by(email=email)
             sess_id = _generate_uuid()
             self._db.update_user(user.id, session_id=sess_id)
-        except (InvalidRequestError, NoResultFound,
-                ValueError):
+        except NoResultFound:
             return None
         return sess_id
 
@@ -84,6 +83,6 @@ class Auth:
             return None
         try:
             user = self._db.find_user_by(session_id=session_id)
-        except (NoResultFound, InvalidRequestError, ValueError):
+        except NoResultFound:
             return None
         return user
