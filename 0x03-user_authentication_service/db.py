@@ -67,10 +67,12 @@ class DB:
                            "session_id", "reset_token"]
         user = self.find_user_by(id=user_id)
         if not user:
-            return 
+            return None
         for column in kwargs.values():
             if column not in item_attributes:
                 raise ValueError
+            if column == item_attributes[0]:
+                user.id = kwargs[column]
             if column == item_attributes[1]:
                 user.email = kwargs[column]
             if column == item_attributes[2]:
