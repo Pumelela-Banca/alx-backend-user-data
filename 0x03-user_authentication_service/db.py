@@ -37,11 +37,8 @@ class DB:
         used to add user to table
         """
         user = User(email=email, hashed_password=hashed_password)
-        if self.__session is None:
-            self._session().add(user)
-        else:
-            self.__session.add(user)
-        self._session.commit()
+        self._session().add(user)
+        self._session().commit()
         return user
 
     def find_user_by(self, **kwargs) -> User:
