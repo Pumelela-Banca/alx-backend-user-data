@@ -17,6 +17,7 @@ def start() -> str:
     """
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route("/users", methods=["POST"])
 def give_passwrd() -> str:
     """
