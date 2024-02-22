@@ -41,7 +41,7 @@ class Auth:
         checks password validity
         """
         try:
-            user = self._db.find_user_by(email)
+            user = self._db.find_user_by(email=email)
         except (InvalidRequestError, NoResultFound):
             return False
         if bcrypt.checkpw(password.encode('utf-8'),
