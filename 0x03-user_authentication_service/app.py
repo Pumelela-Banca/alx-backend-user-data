@@ -45,6 +45,7 @@ def login() -> str:
                               password=password)
     if not user:
         abort(401)
+    AUTH.create_session(email=email_user)
     sess_id = user.session_id
     if sess_id:
         resp = make_response("Set cookie")
