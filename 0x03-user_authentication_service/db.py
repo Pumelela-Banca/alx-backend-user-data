@@ -70,7 +70,7 @@ class DB:
         for cc in kwargs.keys():
             if cc not in item_attributes:
                 raise ValueError
-        for column in kwargs.values():
+        for column in kwargs.keys():
             if column == item_attributes[0]:
                 user.id = kwargs[column]
             if column == item_attributes[1]:
