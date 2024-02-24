@@ -41,14 +41,14 @@ def login() -> str:
     """
     email_user = request.form.get("email")
     password = request.form.get("password")
-
-    status = AUTH.valid_login(email=email_user, password=password)
-    if not status:
+    user = AUTH.register_user(email=email_user,
+                              password=password)
+    if not user:
         abort(401)
-    session_id = AUTH.create_session(email=email_user)
-    if session_id:
+    sess_id = user.session_id
+    if sess_id:
         resp = make_response("Set cookie")
-        resp.set_cookie("session_id", session_id)
+        resp.set_cookie("session_id", sess_id)
         return jsonify({"email": f"<{email_user}>", "message": "logged in"})
 
 
